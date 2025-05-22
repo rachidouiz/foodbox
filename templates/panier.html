@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Panier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Votre panier</h1>
+    {% if panier %}
+        <ul>
+        {% for plat in panier %}
+            <li>{{ plat.nom }} — {{ plat.prix }} $</li>
+        {% endfor %}
+        </ul>
+        <p><strong>Total :</strong> {{ total }} $</p>
+        <a href="{{ url_for('vider') }}">Vider le panier</a>
+    {% else %}
+        <p>Le panier est vide.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Retour au menu</a>
+</body>
+</html>

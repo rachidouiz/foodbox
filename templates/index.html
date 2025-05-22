@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>FoodBox - Accueil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Bienvenue sur FoodBox !</h1>
+    <h2>Menu du restaurant</h2>
+    <ul>
+        {% for plat in plats %}
+            <li>
+                {{ plat.nom }} — {{ plat.prix }} $ 
+                <form method="post" style="display:inline">
+                    <input type="hidden" name="plat_id" value="{{ plat.id }}">
+                    <button type="submit">Ajouter au panier</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('panier') }}">Voir le panier ({{ panier|length }})</a>
+</body>
+</html>
