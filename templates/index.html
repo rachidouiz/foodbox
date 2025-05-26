@@ -6,21 +6,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Le Légendaire" width="120">
-    <h1>Bienvenue chez Le Légendaire !</h1>
-    <p>Le goût authentique du Saguenay, livré chez vous !</p>
-    <h2>Menu du restaurant</h2>
-    <ul>
-        {% for plat in plats %}
-            <li>
-                {{ plat.nom }} — {{ plat.prix }} $ 
-                <form method="post" style="display:inline">
+    <header>
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo Le Légendaire">
+        <h1>Le Légendaire</h1>
+        <div class="slogan">Le goût authentique du Saguenay, livré chez vous !</div>
+        <a href="{{ url_for('panier') }}">Voir le panier ({{ panier|length }})</a>
+    </header>
+    <main>
+        <section class="menu-list">
+            {% for plat in plats %}
+            <div class="card">
+                <h2>{{ plat.nom }}</h2>
+                <div class="prix">{{ plat.prix }} $</div>
+                <form method="post">
                     <input type="hidden" name="plat_id" value="{{ plat.id }}">
                     <button type="submit">Ajouter au panier</button>
                 </form>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('panier') }}">Voir le panier ({{ panier|length }})</a>
+            </div>
+            {% endfor %}
+        </section>
+    </main>
 </body>
 </html>

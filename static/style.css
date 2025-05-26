@@ -1,12 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f7f7f7;
-    margin: 40px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: linear-gradient(135deg, #f7f7f7 80%, #fff8e1 100%);
+    margin: 0;
+    padding: 0;
 }
-h1, h2 { color: #C0392B; } 
-ul { list-style-type: none; padding: 0; }
-li { margin-bottom: 10px; }
-button { background: #27AE60; }
-utton:hover { background: #145A32; }
-a { color: #C0392B; }
-a:hover { text-decoration: underline; }
+
+header {
+    background: #1b1b1b;
+    color: #ffd700;
+    padding: 30px 0 10px 0;
+    text-align: center;
+    border-bottom: 3px solid #ffd700;
+}
+
+header img {
+    width: 110px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.7em;
+    margin: 0 0 0.3em 0;
+    letter-spacing: 1px;
+}
+
+.slogan {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 2em;
+}
+
+.menu-list {
+    max-width: 700px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(27,27,27,0.08);
+    padding: 26px 22px 22px 22px;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.15s;
+}
+.card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(44,44,44,0.13);
+}
+
+.card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4em;
+    margin: 0 0 7px 0;
+    color: #1b1b1b;
+}
+
+.card .prix {
+    color: #bfa055;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.card form {
+    margin-top: auto;
+}
+
+button {
+    background: linear-gradient(90deg,#bfa055 40%,#ffd700 100%);
+    color: #1b1b1b;
+    border: none;
+    padding: 9px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(191,160,85,0.15);
+    transition: background 0.2s;
+}
+button:hover {
+    background: linear-gradient(90deg,#ffd700 10%,#bfa055 90%);
+    color: #222;
+}
+
+a {
+    color: #bfa055;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+a:hover { color: #ffd700; }
+
+@media (max-width: 700px) {
+    .menu-list { grid-template-columns: 1fr; }
+}
