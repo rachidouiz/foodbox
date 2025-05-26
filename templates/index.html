@@ -2,11 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>FoodBox - Accueil</title>
+    <title>Le Légendaire – Commande en ligne</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Bienvenue sur FoodBox !</h1>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Le Légendaire" width="120">
+    <h1>Bienvenue chez Le Légendaire !</h1>
+    <p>Le goût authentique du Saguenay, livré chez vous !</p>
     <h2>Menu du restaurant</h2>
     <ul>
         {% for plat in plats %}

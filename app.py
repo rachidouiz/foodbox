@@ -5,9 +5,16 @@ app.secret_key = 'secret123'  # Pour la session panier
 
 # Simuler la "base de données" des plats
 PLATS = [
-    {"id": 1, "nom": "Pizza Margherita", "prix": 10.99},
-    {"id": 2, "nom": "Burger classique", "prix": 8.50},
-    {"id": 3, "nom": "Salade César", "prix": 7.00},
+    {"id": 1, "nom": "Poutine Légendaire", "prix": 12.99},
+    {"id": 2, "nom": "Burger du Chef (bœuf AAA, fromage Perron, bacon, frites)", "prix": 23.00},
+    {"id": 3, "nom": "Spaghetti sauce à la viande du Légendaire", "prix": 20.00},
+    {"id": 4, "nom": "Brochette de poulet mariné", "prix": 30.00},
+    {"id": 5, "nom": "Fish and Chips maison", "prix": 29.00},
+    {"id": 6, "nom": "Tartare de saumon, fraises et lime", "prix": 32.00},
+    {"id": 7, "nom": "Salade méchouia Tunisienne", "prix": 12.00},
+    {"id": 8, "nom": "Carbonara moderne (Linguine, pancetta, parmesan)", "prix": 25.00},
+    {"id": 9, "nom": "Crêpe maison ou pain doré", "prix": 14.00},
+    {"id": 10, "nom": "Gâteau mi-cuit au chocolat", "prix": 7.00},
 ]
 
 # Page d'accueil : affiche plats + formulaire d'ajout

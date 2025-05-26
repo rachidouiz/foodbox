@@ -3,23 +3,10 @@ body {
     background: #f7f7f7;
     margin: 40px;
 }
-h1, h2 { color: #355C7D; }
+h1, h2 { color: #C0392B; } 
 ul { list-style-type: none; padding: 0; }
 li { margin-bottom: 10px; }
-button {
-    background: #6C5B7B;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-button:hover {
-    background: #355C7D;
-}
-a {
-    color: #355C7D;
-    text-decoration: none;
-    font-weight: bold;
-}
+button { background: #27AE60; }
+utton:hover { background: #145A32; }
+a { color: #C0392B; }
 a:hover { text-decoration: underline; }
