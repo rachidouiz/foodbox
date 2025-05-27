@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titre_page }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<style>
+    body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    /* Option 1: fond couleur bois très doux */
+    background: linear-gradient(130deg, #f6eee7 70%, #efe6dc 100%);
+    }
+</style>
+<body>
+    <div class="menu-container">
+        <a href="{{ url_for('index') }}" class="lien-retour">&larr; Accueil</a>
+        <h1>{{ titre_page }}</h1>
+        <a href="{{ url_for('panier') }}" class="panier-link">Voir le panier ({{ panier|length }})</a>
+
+        {% for section, plats in menu.items() %}
+        <div class="menu-section">
+            <h2>{{ section }}</h2>
+            <ul class="menu-list">
+                {% for plat in plats %}
+                <li class="menu-item">
+                    <span class="plat-nom">{{ plat.nom }}</span>
+                    <span class="plat-prix">{{ "%.2f"|format(plat.prix) }} $</span>
+                    <form method="post" style="display:inline">
+                        <input type="hidden" name="plat_nom" value="{{ plat.nom }}">
+                        <input type="hidden" name="plat_prix" value="{{ plat.prix }}">
+                        <button type="submit">Ajouter au panier</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

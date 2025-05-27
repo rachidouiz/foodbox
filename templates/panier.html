@@ -5,19 +5,45 @@
     <title>Mon Panier</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<style>
+    body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    /* Option 1: fond couleur bois très doux */
+    background: linear-gradient(130deg, #f6eee7 70%, #efe6dc 100%);
+    }
+</style>
 <body>
-    <h1>Votre panier</h1>
-    {% if panier %}
-        <ul>
-        {% for plat in panier %}
-            <li>{{ plat.nom }} — {{ plat.prix }} $</li>
-        {% endfor %}
+    <div class="panier-container">
+        <a href="{{ url_for('index') }}" class="lien-retour">&larr; Accueil</a>
+        <h1>Votre panier</h1>
+        <hr class="separateur-menu">
+        
+        {% if panier %}
+        <ul class="panier-list">
+            {% for plat in panier %}
+            <li class="panier-item">
+                <span class="plat-nom">{{ plat.nom }}</span>
+                <div class="quantite-controls">
+                    <a href="{{ url_for('retirer', index=loop.index0) }}" class="q-btn">−</a>
+                    <span class="quantite">{{ plat.quantite }}</span>
+                    <a href="{{ url_for('ajouter', index=loop.index0) }}" class="q-btn">+</a>
+                </div>
+                <span class="plat-prix">{{ "%.2f"|format(plat.prix * plat.quantite) }} $</span>
+            </li>
+            {% endfor %}
         </ul>
-        <p><strong>Total :</strong> {{ total }} $</p>
-        <a href="{{ url_for('vider') }}">Vider le panier</a>
-    {% else %}
-        <p>Le panier est vide.</p>
-    {% endif %}
-    <a href="{{ url_for('index') }}">Retour au menu</a>
+            <div class="panier-total">
+                <span>Total</span>
+                <span>{{ "%.2f"|format(total) }} $</span>
+            </div>
+            <div class="panier-actions">
+                <a href="{{ url_for('vider') }}" class="btn-luxe">Vider le panier</a>
+                <a href="{{ url_for('menu', nom_menu='dejeuner') }}" class="btn-luxe">Retour au menu</a>
+            </div>
+        {% else %}
+            <p class="vide-message">Votre panier est vide.</p>
+            <a href="{{ url_for('menu', nom_menu='dejeuner') }}" class="btn-luxe">Voir le menu</a>
+        {% endif %}
+    </div>
 </body>
 </html>

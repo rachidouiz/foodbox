@@ -2,29 +2,85 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Le Légendaire – Commande en ligne</title>
+    <title>Le Légendaire – Accueil</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Pour rendre le fond flou, sombre et animé */
+    .slideshow-bg {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw; height: 100vh;
+        z-index: -1; /* <- le plus important ! */
+        overflow: hidden;
+    }
+    .slideshow-bg img {
+        position: absolute;
+        width: 100vw; height: 100vh;
+        object-fit: cover;
+        filter: blur(7px) brightness(0.7);
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+    .slideshow-bg img.active {
+        opacity: 1;
+        z-index: 1;
+    }
+        main.accueil-main {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 85vh;
+            gap: 60px;
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo Le Légendaire">
-        <h1>Le Légendaire</h1>
-        <div class="slogan">Le goût authentique du Saguenay, livré chez vous !</div>
-        <a href="{{ url_for('panier') }}">Voir le panier ({{ panier|length }})</a>
+     <div class="slideshow-bg">
+        <img src="{{ url_for('static', filename='image1.jpg') }}" class="active" />
+        <img src="{{ url_for('static', filename='image2.jpg') }}" />
+        <img src="{{ url_for('static', filename='image3.jpg') }}" />
+        <img src="{{ url_for('static', filename='image4.jpg') }}" />
+        <img src="{{ url_for('static', filename='image5.jpg') }}" />
+        <img src="{{ url_for('static', filename='image6.jpg') }}" />
+        <img src="{{ url_for('static', filename='image7.jpg') }}" />
+       
+    </div>
+   <header class="lux-header">
+    <div class="header-inner">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Le Légendaire" class="logo-luxe">
+        <div class="header-texte">
+            <h1>Le Légendaire</h1>
+            <div class="slogan">La gastronomie du Saguenay, à votre table !</div>
+        </div>
+    </div>
     </header>
-    <main>
-        <section class="menu-list">
-            {% for plat in plats %}
-            <div class="card">
-                <h2>{{ plat.nom }}</h2>
-                <div class="prix">{{ plat.prix }} $</div>
-                <form method="post">
-                    <input type="hidden" name="plat_id" value="{{ plat.id }}">
-                    <button type="submit">Ajouter au panier</button>
-                </form>
+    <main class="accueil-main" style="position:relative;z-index:1;">
+        <a href="{{ url_for('menu', nom_menu='dejeuner') }}" class="accueil-card">
+            <div>
+                <h2>Menu Déjeuner</h2>
             </div>
-            {% endfor %}
-        </section>
+        </a>
+        <a href="{{ url_for('menu', nom_menu='diner_souper') }}" class="accueil-card">
+            <div>
+                <h2>Menu Dîner / Souper</h2>
+            </div>
+        </a>
     </main>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const images = document.querySelectorAll('.slideshow-bg img');
+        let current = 0;
+        setInterval(() => {
+            images[current].classList.remove('active');
+            current = (current + 1) % images.length;
+            images[current].classList.add('active');
+        }, 3200);
+    });
+    </script>
+
 </body>
 </html>
