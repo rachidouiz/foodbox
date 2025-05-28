@@ -113,7 +113,7 @@ def menu(nom_menu):
 @app.route('/panier')
 def panier():
     panier = session.get('panier', [])
-    total = sum(plat['prix'] for plat in panier)
+    total = sum(plat['prix'] * plat['quantite'] for plat in panier)
     return render_template('panier.html', panier=panier, total=total)
 
 # Vider le panier
@@ -136,6 +136,21 @@ def retirer(index):
             session['panier'].pop(index)
         session.modified = True
     return redirect(url_for('panier'))
+
+@app.route('/commande', methods=['GET', 'POST'])
+def commande():
+    panier = session.get('panier', [])
+    total = sum(plat['prix'] * plat['quantite'] for plat in panier)
+    if request.method == 'POST':
+        nom = request.form.get('nom')
+        email = request.form.get('email')
+        chambre = request.form.get('chambre')
+        instructions = request.form.get('instructions')
+        # Ici tu peux stocker la commande, l'afficher ou l'envoyer par email
+        session['panier'] = []
+        return render_template('confirmation.html', nom=nom, chambre=chambre)
+    return render_template('commande.html', panier=panier, total=total)
+
 
 
 if __name__ == '__main__':

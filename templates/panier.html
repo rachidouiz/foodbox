@@ -23,15 +23,15 @@
             {% for plat in panier %}
             <li class="panier-item">
                 <span class="plat-nom">{{ plat.nom }}</span>
+                <span class="plat-prix">{{ "%.2f"|format(plat.prix * plat.quantite) }} $</span>
                 <div class="quantite-controls">
                     <a href="{{ url_for('retirer', index=loop.index0) }}" class="q-btn">−</a>
                     <span class="quantite">{{ plat.quantite }}</span>
                     <a href="{{ url_for('ajouter', index=loop.index0) }}" class="q-btn">+</a>
                 </div>
-                <span class="plat-prix">{{ "%.2f"|format(plat.prix * plat.quantite) }} $</span>
             </li>
             {% endfor %}
-        </ul>
+        </ul>   
             <div class="panier-total">
                 <span>Total</span>
                 <span>{{ "%.2f"|format(total) }} $</span>
@@ -39,6 +39,7 @@
             <div class="panier-actions">
                 <a href="{{ url_for('vider') }}" class="btn-luxe">Vider le panier</a>
                 <a href="{{ url_for('menu', nom_menu='dejeuner') }}" class="btn-luxe">Retour au menu</a>
+                <a href="{{ url_for('commande') }}" class="btn-luxe">Passer la commande</a>
             </div>
         {% else %}
             <p class="vide-message">Votre panier est vide.</p>

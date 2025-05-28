@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Commande envoyée - Le Légendaire</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="confirmation-container">
+        <h1>Merci pour votre commande, {{ nom }} !</h1>
+        <p>Nous livrerons votre commande à la chambre <strong>{{ chambre }}</strong> dans les plus brefs délais.</p>
+        <a href="{{ url_for('index') }}">Retour à l'accueil</a>
+    </div>
+</body>
+</html>
