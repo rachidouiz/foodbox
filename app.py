@@ -40,7 +40,7 @@ menus = {
             {"nom": "MOJITO BLEUET", "prix": 11.00},
             {"nom": "ST-TROPEZ (sans alcool)", "prix": 8.00},
             {"nom": "BUDWEISER 16 oz", "prix": 9.00},
-            # ... ajoute d’autres boissons ou cocktails comme tu veux
+            # ... 
         ],
         "Entrées": [
             {"nom": "Potage du moment", "prix": 5.00},
@@ -74,7 +74,7 @@ menus = {
 @app.route('/')
 def index():
     return render_template('index.html')
-
+# Page de menu :
 @app.route('/menu/<nom_menu>', methods=['GET', 'POST'])
 def menu(nom_menu):
     if 'panier' not in session:
@@ -146,7 +146,7 @@ def commande():
         email = request.form.get('email')
         chambre = request.form.get('chambre')
         instructions = request.form.get('instructions')
-        # Ici tu peux stocker la commande, l'afficher ou l'envoyer par email
+        # Ici on stocker la commande
         session['panier'] = []
         return render_template('confirmation.html', nom=nom, chambre=chambre)
     return render_template('commande.html', panier=panier, total=total)
