@@ -86,7 +86,7 @@ def menu(nom_menu):
 
     if request.method == 'POST':
         plat_nom = request.form.get('plat_nom')
-        plat_prix = float(request.form.get('plat_prix'))
+        plat_prix = float(request.form.get('plat_prix') or 0)
 
         panier = session['panier']
         for item in panier:
