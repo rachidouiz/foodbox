@@ -28,6 +28,7 @@
                     <span class="plat-prix">{{ "%.2f"|format(plat.prix) }} $</span>
                     <form method="post" style="display:inline">
                         <input type="hidden" name="plat_nom" value="{{ plat.nom }}">
+                        <input type="hidden" name="plat_id" value="{{ plat.id }}">
                         <input type="hidden" name="plat_prix" value="{{ plat.prix }}">
                         <button type="submit">Ajouter au panier</button>
                     </form>

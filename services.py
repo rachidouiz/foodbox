@@ -1,8 +1,17 @@
-from data import get_menus
+from models import Plat
+from collections import defaultdict
 
 def get_menu_by_name(nom_menu):
-    menus = get_menus()
-    return menus.get(nom_menu)
+    plats = Plat.query.all()
+    menu = defaultdict(list)
+
+    for plat in plats:
+        if nom_menu == 'dejeuner' and plat.categorie in ['Breuvage matin', 'Plats du matin']:
+            menu[plat.categorie].append({'nom': plat.nom, 'prix': plat.prix})
+        elif nom_menu == 'diner_souper' and plat.categorie in ['Breuvages', 'Entrées', 'Plats principaux', 'Desserts']:
+            menu[plat.categorie].append({'nom': plat.nom, 'prix': plat.prix})
+
+    return dict(menu)
 
 def ajouter_au_panier(panier, plat_nom, plat_prix):
     for item in panier:
