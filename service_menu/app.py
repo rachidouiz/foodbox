@@ -1,9 +1,17 @@
+import os
 from flask import Flask, jsonify, request
 from models import db, Plat
 from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///menu.db'
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(basedir, '..', 'data', 'menu.db')
+print(" DB utilisée :", db_path)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
