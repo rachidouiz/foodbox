@@ -1,0 +1,17 @@
+# Utilise une image Python de base
+FROM python:3.12-slim
+
+# Crée un dossier de travail
+WORKDIR /app
+
+# Copie les fichiers du microservice
+COPY . .
+
+# Installe les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose le port utilisé
+EXPOSE 5002
+
+# Commande pour démarrer l'application
+CMD ["python", "app.py"]
