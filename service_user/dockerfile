@@ -1,0 +1,17 @@
+# Utilise une image officielle Python comme base
+FROM python:3.12-slim
+
+# Crée le répertoire de travail
+WORKDIR /app
+
+# Copie les fichiers requis
+COPY . .
+
+# Installe les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose le port de l’application Flask
+EXPOSE 5004
+
+# Commande pour démarrer l’application
+CMD ["python", "app.py"]
