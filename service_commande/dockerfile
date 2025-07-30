@@ -1,0 +1,17 @@
+#Image de base
+FROM python:3.12-slim
+
+#Définir le répertoire de travail
+WORKDIR /app
+
+#Copier les fichiers du microservice
+COPY . .
+
+#Installer les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
+
+#Exposer le port utilisé par Flask
+EXPOSE 5002
+
+#Commande pour démarrer l'application
+CMD ["python", "app.py"]
