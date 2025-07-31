@@ -2,24 +2,25 @@ import os
 from flask import Flask, jsonify, request
 from models import db, Plat
 from flask_marshmallow import Marshmallow
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 app = Flask(__name__)
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-db_path = os.path.join(basedir, '..', 'data', 'menu.db')
-print(" DB utilisée :", db_path)
+# Gestion du chemin vers la base de données (Docker vs local)
+if os.environ.get("FLASK_ENV") == "docker":
+    db_path = '/data/menu.db'
+else:
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    db_path = os.path.join(basedir, '..', 'data', 'menu.db')
 
+print("DB utilisée :", db_path)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
-
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 ma = Marshmallow(app)
 
 # Schéma de sérialisation
-from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-
 class PlatSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Plat

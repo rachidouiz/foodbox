@@ -1,10 +1,19 @@
+import os
 from flask import Flask, request, jsonify
 from flask_marshmallow import Marshmallow
 from models import db, Commande, ArticleCommande
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///commandes.db'
+
+# Détection de l'environnement et configuration du chemin de la base
+if os.environ.get("FLASK_ENV") == "docker":
+    db_path = '/data/commandes.db'
+else:
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    db_path = os.path.join(basedir, '..', 'data', 'commandes.db')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
