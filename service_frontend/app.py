@@ -173,6 +173,77 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+@app.route('/admin/plat/ajouter', methods=['POST'])
+def ajouter_plat():
+    if 'admin' not in session:
+        return redirect(url_for('login'))
+    
+    data = {
+        "nom": request.form['nom'],
+        "prix": float(request.form['prix']),
+        "categorie": request.form['categorie']
+    }
+    try:
+        r = requests.post(f"{MENU_SVC}/plats", json=data, timeout=3)
+        r.raise_for_status()
+        flash("Plat ajouté avec succès", "success")
+    except Exception as e:
+        app.logger.error("Erreur ajout plat : %s", e)
+        flash("Erreur lors de l'ajout du plat", "error")
+    
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/plat/modifier/<int:id>', methods=['POST'])
+def modifier_plat(id):
+    if 'admin' not in session:
+        return redirect(url_for('login'))
+
+    data = {
+        "nom": request.form['nom'],
+        "prix": float(request.form['prix']),
+        "categorie": request.form['categorie']
+    }
+    try:
+        r = requests.put(f"{MENU_SVC}/plats/{id}", json=data, timeout=3)
+        r.raise_for_status()
+        flash("Plat modifié avec succès", "success")
+    except Exception as e:
+        app.logger.error("Erreur modification plat : %s", e)
+        flash("Erreur lors de la modification du plat", "error")
+    
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/plat/supprimer/<int:id>')
+def supprimer_plat(id):
+    if 'admin' not in session:
+        return redirect(url_for('login'))
+
+    try:
+        r = requests.delete(f"{MENU_SVC}/plats/{id}", timeout=3)
+        r.raise_for_status()
+        flash("Plat supprimé avec succès", "success")
+    except Exception as e:
+        app.logger.error("Erreur suppression plat : %s", e)
+        flash("Erreur lors de la suppression du plat", "error")
+    
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/commande/supprimer/<int:id>')
+def supprimer_commande(id):
+    if 'admin' not in session:
+        return redirect(url_for('login'))
+
+    try:
+        r = requests.delete(f"{COMMANDES_SVC}/commandes/{id}", timeout=3)
+        r.raise_for_status()
+        flash("Commande supprimée avec succès", "success")
+    except Exception as e:
+        app.logger.error("Erreur suppression commande : %s", e)
+        flash("Erreur lors de la suppression de la commande", "error")
+    
+    return redirect(url_for('admin_dashboard'))
+
+
 # Health-check simple
 @app.route('/health')
 def health():

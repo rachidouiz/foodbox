@@ -1,31 +1,90 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+        h2 { color: #333; }
+        .section { background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; }
+        th { background: #eee; }
+        input, select, button { padding: 5px; margin-top: 5px; }
+        form { margin-bottom: 10px; }
+    </style>
 </head>
 <body>
-  <h1>Bienvenue, Admin</h1>
-  <a href="{{ url_for('logout') }}">Déconnexion</a>
+    <h1>Bienvenue Admin {{ session.admin }}</h1>
+    <a href="{{ url_for('logout') }}">Se déconnecter</a>
 
-  <h2>Liste des Plats</h2>
-  <ul>
-    {% for plat in plats %}
-      <li>{{ plat.nom }} - {{ plat.prix }}$ ({{ plat.categorie }})</li>
-    {% endfor %}
-  </ul>
+    <!-- GESTION DES PLATS -->
+    <div class="section">
+        <h2>Gestion des Plats</h2>
+        <form method="post" action="/admin/plat/ajouter">
+            <input name="nom" placeholder="Nom du plat" required>
+            <input name="prix" placeholder="Prix" type="number" step="0.01" required>
+            <select name="categorie" required>
+                <option value="Plats du matin">Plats du matin</option>
+                <option value="Breuvage matin">Breuvage matin</option>
+                <option value="Entrées">Entrées</option>
+                <option value="Plats principaux">Plats principaux</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Breuvages">Breuvages</option>
+            </select>
+            <button type="submit">Ajouter</button>
+        </form>
 
-  <h2>Commandes Reçues</h2>
-  <ul>
-    {% for cmd in commandes %}
-      <li>
-        <strong>{{ cmd.nom }}</strong> (Chambre {{ cmd.numero_chambre }})<br>
-        {% for article in cmd.articles %}
-          - {{ article.nom_plat }} x{{ article.quantite }} ({{ article.prix }}$)<br>
-        {% endfor %}
-        Instructions: {{ cmd.instructions or 'Aucune' }}
-      </li>
-    {% endfor %}
-  </ul>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Nom</th><th>Prix</th><th>Catégorie</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for plat in plats %}
+                <tr>
+                    <form method="post" action="/admin/plat/modifier/{{ plat.id }}">
+                        <td>{{ plat.id }}</td>
+                        <td><input name="nom" value="{{ plat.nom }}"></td>
+                        <td><input name="prix" type="number" step="0.01" value="{{ plat.prix }}"></td>
+                        <td><input name="categorie" value="{{ plat.categorie }}"></td>
+                        <td>
+                            <button type="submit">Modifier</button>
+                            <a href="/admin/plat/supprimer/{{ plat.id }}">Supprimer</a>
+                        </td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- GESTION DES COMMANDES -->
+    <div class="section">
+        <h2>Commandes</h2>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Client</th><th>Chambre</th><th>Articles</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for cmd in commandes %}
+                <tr>
+                    <td>{{ cmd.id }}</td>
+                    <td>{{ cmd.nom_client }}</td>
+                    <td>{{ cmd.numero_chambre }}</td>
+                    <td>
+                        <ul>
+                            {% for a in cmd.articles %}
+                            <li>{{ a.nom_plat }} (x{{ a.quantite }}) - {{ a.prix }}$</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="/admin/commande/supprimer/{{ cmd.id }}">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
