@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h1>Bienvenue, Admin</h1>
+  <a href="{{ url_for('logout') }}">Déconnexion</a>
+
+  <h2>Liste des Plats</h2>
+  <ul>
+    {% for plat in plats %}
+      <li>{{ plat.nom }} - {{ plat.prix }}$ ({{ plat.categorie }})</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Commandes Reçues</h2>
+  <ul>
+    {% for cmd in commandes %}
+      <li>
+        <strong>{{ cmd.nom }}</strong> (Chambre {{ cmd.numero_chambre }})<br>
+        {% for article in cmd.articles %}
+          - {{ article.nom_plat }} x{{ article.quantite }} ({{ article.prix }}$)<br>
+        {% endfor %}
+        Instructions: {{ cmd.instructions or 'Aucune' }}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

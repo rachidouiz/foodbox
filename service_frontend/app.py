@@ -8,7 +8,7 @@ app.secret_key = os.getenv("FRONTEND_SECRET", "changeme123")
 # Endpoints des microservices via variables d'environnement
 MENU_SVC = os.getenv("MENU_SVC", "http://menu:5001")
 COMMANDES_SVC = os.getenv("COMMANDES_SVC", "http://commandes:5003")
-
+UTILISATEURS_SVC = os.getenv("UTILISATEURS_SVC", "http://utilisateurs:5004")
 # Helpers
 def recuperer_menu(nom_menu):
     try:
@@ -130,11 +130,53 @@ def commande():
         session['panier'] = []
         return render_template('confirmation.html', nom=nom, chambre=chambre)
     return render_template('commande.html', panier=panier, total=total)
+@app.route('/account')
+def login():
+    return render_template('login.html')
+
+@app.route('/auth', methods=['POST'])
+def auth():
+    nom_utilisateur = request.form.get("nom_utilisateur")
+    mot_de_passe = request.form.get("mot_de_passe")
+
+    try:
+        r = requests.post(f"{UTILISATEURS_SVC}/auth/connexion", json={
+            "nom_utilisateur": nom_utilisateur,
+            "mot_de_passe": mot_de_passe
+        })
+        data = r.json()
+        if r.status_code == 200 and data.get("role") == "admin":
+            session['admin'] = data.get("utilisateur")
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash("Nom d'utilisateur ou mot de passe incorrect", "error")
+    except Exception as e:
+        flash("Erreur de connexion au service d'authentification", "error")
+        app.logger.error("Auth error: %s", e)
+    return redirect(url_for('login'))
+
+@app.route('/admin')
+def admin_dashboard():
+    if 'admin' not in session:
+        return redirect(url_for('login'))
+
+    try:
+        plats = requests.get(f"{MENU_SVC}/plats").json()
+        commandes = requests.get(f"{COMMANDES_SVC}/commandes").json()
+    except Exception as e:
+        plats, commandes = [], []
+        flash("Erreur récupération données", "error")
+    return render_template('admin_dashboard.html', plats=plats, commandes=commandes)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 # Health-check simple
 @app.route('/health')
 def health():
-    return jsonify({"status": "ok", "services": {"menu": MENU_SVC, "commandes": COMMANDES_SVC}}), 200
+    return jsonify({"status": "ok", "services": {"menu": MENU_SVC, "commandes": COMMANDES_SVC,"utilisateurs": UTILISATEURS_SVC}}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5000)
