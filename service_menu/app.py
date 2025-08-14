@@ -3,7 +3,15 @@ from flask import Flask, jsonify, request
 from models import db, Plat
 from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+import logging
+os.makedirs("logs", exist_ok=True)
+logging.basicConfig(
+    filename="logs/app.log",
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
 
+logging.info("Service démarré")
 app = Flask(__name__)
 
 # Gestion du chemin vers la base de données (Docker vs local)
@@ -62,6 +70,8 @@ def delete_plat(id):
     db.session.delete(plat)
     db.session.commit()
     return jsonify({"message": "Plat supprimé"}), 200
+
+
 
 if __name__ == '__main__':
     with app.app_context():

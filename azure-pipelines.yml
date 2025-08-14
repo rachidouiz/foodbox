@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: Default
+  demands:
+    - agent.name -equals agent_foodbox
+
+variables:
+  COMPOSE_PROJECT_NAME: foodbox
+
+steps:
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.12'
+
+- task: DockerInstaller@0
+  displayName: 'Installer Docker'
+
+- script: |
+    echo "Clonage terminé, build Docker Compose..."
+    docker-compose -f docker-compose.yml build
+  displayName: 'Build des services Docker'
+
+- script: |
+    echo "Lancement des services..."
+    docker-compose -f docker-compose.yml up -d
+  displayName: 'Démarrage des services'
+
+- script: |
+    echo "Vérification de l’état..."
+    docker ps
+  displayName: 'Liste des conteneurs actifs'
+

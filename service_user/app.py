@@ -3,7 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, Utilisateur  # on importe le modèle correct
 import os
+import logging
+os.makedirs("logs", exist_ok=True)
+logging.basicConfig(
+    filename="logs/app.log",
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
 
+logging.info("Service démarré")
 app = Flask(__name__)
 
 # Pour détecter si on est dans Docker (où /data est monté)
@@ -49,6 +57,8 @@ def connexion():
             "utilisateur": utilisateur.nom_utilisateur
         }), 200
     return jsonify({"message": "Nom d'utilisateur ou mot de passe incorrect"}), 401
+
+
 
 # --- MAIN ---
 if __name__ == '__main__':

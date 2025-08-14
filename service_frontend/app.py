@@ -1,7 +1,15 @@
 import os
 import requests
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+import logging
+os.makedirs("logs", exist_ok=True)
+logging.basicConfig(
+    filename="logs/app.log",
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
 
+logging.info("Service démarré")
 app = Flask(__name__)
 app.secret_key = os.getenv("FRONTEND_SECRET", "changeme123")  
 

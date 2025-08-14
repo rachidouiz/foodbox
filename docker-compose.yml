@@ -6,14 +6,26 @@ services:
     volumes:
       - ./service_menu:/app
       - ./data:/data
+      - ./logs/menu:/logs
 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3  
   panier:
     build: ./service_panier
     ports:
       - "5002:5002"
     volumes:
       - ./service_panier:/app
+      - ./logs/panier:/logs
 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5002"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   commandes:
     build: ./service_commande
     ports:
@@ -21,7 +33,13 @@ services:
     volumes:
       - ./service_commande:/app
       - ./data:/data
+      - ./logs/commandes:/logs
 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   utilisateurs:
     build: ./service_user
     ports:
@@ -29,16 +47,29 @@ services:
     volumes:
       - ./service_user:/app
       - ./data:/data
+      - ./logs/utilisateurs:/logs
 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5004"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   frontend:
     build: ./service_frontend
     ports:
       - "5000:5000"
     volumes:
       - ./service_frontend:/app
+      - ./logs/menu:/logs
+
     depends_on:
       - menu
       - commandes
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   default:

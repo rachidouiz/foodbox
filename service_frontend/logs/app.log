@@ -1,0 +1,24 @@
+2025-08-14 11:57:03,370 [INFO] Service démarré
+2025-08-14 11:57:03,645 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.6:5000
+2025-08-14 11:57:03,648 [INFO] [33mPress CTRL+C to quit[0m
+2025-08-14 11:57:03,651 [INFO]  * Restarting with stat
+2025-08-14 11:57:05,340 [INFO] Service démarré
+2025-08-14 11:57:05,432 [WARNING]  * Debugger is active!
+2025-08-14 11:57:05,434 [INFO]  * Debugger PIN: 520-200-358
+2025-08-14 11:57:26,760 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:26] "GET /panier HTTP/1.1" 200 -
+2025-08-14 11:57:26,852 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:26] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,557 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "GET / HTTP/1.1" 200 -
+2025-08-14 11:57:29,640 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,673 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/image3.jpg HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,675 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/image2.jpg HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,675 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/image4.jpg HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,676 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/image5.jpg HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,676 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/image1.jpg HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,679 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/image6.jpg HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,779 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/image7.jpg HTTP/1.1[0m" 304 -
+2025-08-14 11:57:29,781 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:29] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+2025-08-14 11:57:30,915 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:30] "GET /menu/dejeuner HTTP/1.1" 200 -
+2025-08-14 11:57:30,993 [INFO] 172.18.0.1 - - [14/Aug/2025 11:57:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -

@@ -1,6 +1,15 @@
+import os
 from flask import Flask, jsonify, request
 from panier_utils import ajouter_au_panier, retirer_du_panier, calculer_total
+import logging
+os.makedirs("logs", exist_ok=True)
+logging.basicConfig(
+    filename="logs/app.log",
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
 
+logging.info("Service démarré")
 app = Flask(__name__)
 
 # Panier temporaire en mémoire (non persistant)
@@ -35,6 +44,8 @@ def supprimer_item(item_id):
 def get_total():
     total = calculer_total(panier)
     return jsonify({'total': total}), 200
+
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True, port=5002)

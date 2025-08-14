@@ -3,7 +3,15 @@ from flask import Flask, request, jsonify
 from flask_marshmallow import Marshmallow
 from models import db, Commande, ArticleCommande
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+import logging
+os.makedirs("logs", exist_ok=True)
+logging.basicConfig(
+    filename="logs/app.log",
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
 
+logging.info("Service démarré")
 app = Flask(__name__)
 
 # Détection de l'environnement et configuration du chemin de la base
@@ -66,6 +74,9 @@ def supprimer_commande(id):
     db.session.delete(commande)
     db.session.commit()
     return jsonify({"message": "Commande supprimée"}), 200
+
+################
+
 
 if __name__ == '__main__':
     with app.app_context():

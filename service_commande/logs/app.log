@@ -1,0 +1,10 @@
+2025-08-14 11:57:01,846 [INFO] Service démarré
+2025-08-14 11:57:02,290 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5003
+ * Running on http://172.18.0.2:5003
+2025-08-14 11:57:02,291 [INFO] [33mPress CTRL+C to quit[0m
+2025-08-14 11:57:02,293 [INFO]  * Restarting with stat
+2025-08-14 11:57:04,714 [INFO] Service démarré
+2025-08-14 11:57:04,837 [WARNING]  * Debugger is active!
+2025-08-14 11:57:04,838 [INFO]  * Debugger PIN: 477-785-630
